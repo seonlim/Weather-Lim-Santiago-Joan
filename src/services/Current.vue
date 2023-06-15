@@ -1,25 +1,43 @@
 <template>
     <section class="container">
-        <p>container</p>
+        <article class="background">
+            <aside>
+                <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>
+                <h2>{{weatherData.current?.temp_c}}°</h2>
+            </aside>
+            <aside>
+                <p>{{dateFormat}}</p>
+            </aside>
+
+        </article>
     </section>
 </template>
 
 
 <script>
+
 export default {
     name:'CurrentData',
-    setup() {
+    data() {
+
         return {
             api: "/src/services/currentResponse.json",
-            weatherData:{}
+            weatherData:{},
+            dateFormat:"",
+            show:false
         }
         
     },
     methods:{
+        
         async getData(){
             try{
-                let response = await fetch(this.api);
-                 this.weatherData =await response.json().then(data=> data);
+                 console.log(this.show);
+
+                 await fetch(this.api).then(res=>res.json()).then(data=>this.weatherData=data);
+                 console.log(this.weatherData)
+                 this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                console.log();
             } catch(e) {
                 console.log(e);
             }
@@ -33,6 +51,35 @@ export default {
 </script>
 <style scoped>
 .container {
-padding: 10vh;
+padding: 7vh;
+display: flex;
+justify-content: center;
+}
+.background {
+    background-position: center;
+    padding: 3vh;
+    color: white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: linear-gradient(to bottom,#FFC26F,#C38154,#884A39);
+    height: 50vh;
+    width: 95%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+h3 {
+    color: white;
+    font-size: 30px;
+    font-weight: 400;
+}
+h2 {
+    color: white;
+    font-size: 140px;
+
+}
+p {
+    font-size: 30px;
+
 }
 </style>
