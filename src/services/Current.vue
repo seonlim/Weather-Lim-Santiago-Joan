@@ -1,6 +1,6 @@
 <template>
     <section class="container">
-        <article class="background">
+        <article :class="{background:true,sunset:(hour>=19 && hour<=21), sunrise:(hour>=5 && hour<=7), night:hour>=22 || hour<=4,day:(hour>=8 && hour<=18) }">
             <aside>
                 <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>
                 <h2>{{weatherData.current?.temp_c}}°</h2>
@@ -27,7 +27,8 @@ export default {
             api: "/src/services/currentResponse.json",
             weatherData:{},
             dateFormat:"",
-            show:false
+            hour:"",
+            show:true
         }
         
     },
@@ -40,7 +41,8 @@ export default {
                  await fetch(this.api).then(res=>res.json()).then(data=>this.weatherData=data);
                  console.log(this.weatherData)
                  this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-                console.log();
+                 this.hour=new Date(this.weatherData.location?.localtime_epoch*1000).getHours();
+                 console.log(`${(this.hour).getHours()}`)
             } catch(e) {
                 console.log(e);
             }
@@ -59,18 +61,34 @@ display: flex;
 justify-content: center;
 }
 .background {
-    background-position: center;
+    background-position: top;
     padding: 3vh;
     color: white;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: linear-gradient(to bottom,#FFC26F,#C38154,#884A39);
+    /* background-image: url("https://cdn.vox-cdn.com/thumbor/R4HOj89cekaEOkDW2hOiz8QnjK4=/0x0:2560x1440/1400x1050/filters:focal(1280x720:1281x721)/cdn.vox-cdn.com/uploads/chorus_asset/file/21857937/Land_Sea_UpcomingProject_TeaserImage.png"); */
+    /* background-image: linear-gradient(to bottom,#FFC26F,#C38154,#884A39); */
     height: fit-content;
     width: 90%;
     border-radius: 15px;
     display: flex;
     justify-content: space-between;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.sunset {
+    background-image: url("https://149362454.v2.pressablecdn.com/previously/wp-content/uploads/sites/5/2015/02/b04_QuarterPipe.png");
+}
+
+.sunrise {
+    background-image: url("https://cdn.vox-cdn.com/thumbor/R4HOj89cekaEOkDW2hOiz8QnjK4=/0x0:2560x1440/1400x1050/filters:focal(1280x720:1281x721)/cdn.vox-cdn.com/uploads/chorus_asset/file/21857937/Land_Sea_UpcomingProject_TeaserImage.png");
+
+}
+.night {
+    background-image: url("https://i.pinimg.com/originals/a2/48/92/a24892f0b14a4a847a63139741de6fbf.jpg");
+}
+.day {
+    background-image: url("https://i.pinimg.com/originals/f1/3d/a2/f13da27bb30ffbd69cb504d52767e1b9.jpg");
 }
 
 aside {
