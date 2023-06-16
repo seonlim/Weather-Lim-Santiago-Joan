@@ -4,6 +4,9 @@
             <aside>
                 <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>
                 <h2>{{weatherData.current?.temp_c}}°</h2>
+                <h5>{{weatherData.current?.condition.text}}</h5>
+                <img :src="weatherData.current?.condition.icon" alt="">
+                <h6><i class="fa-solid fa-temperature-quarter"></i> UV Index: {{weatherData.current?.uv}}</h6>
             </aside>
             <aside>
                 <p>{{dateFormat}}</p>
@@ -62,24 +65,40 @@ justify-content: center;
     background-size: cover;
     background-repeat: no-repeat;
     background-image: linear-gradient(to bottom,#FFC26F,#C38154,#884A39);
-    height: 50vh;
-    width: 95%;
+    height: fit-content;
+    width: 90%;
     border-radius: 15px;
     display: flex;
     justify-content: space-between;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-h3 {
+
+aside {
+    display: flex;
+    flex-direction: column;
+
+}
+
+aside img {
+    width: 12vh;
+    height: 12vh;
+}
+h3,h5 {
     color: white;
     font-size: 30px;
     font-weight: 400;
 }
 h2 {
     color: white;
-    font-size: 140px;
+    font-size: 135px;
+
+}
+h6 {
+    font-size: 20px;
 
 }
 p {
-    font-size: 30px;
+    font-size: 25px;
 
 }
 </style>
