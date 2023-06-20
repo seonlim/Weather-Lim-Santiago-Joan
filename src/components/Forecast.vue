@@ -9,9 +9,20 @@
         <h5>{{data.day.avgtemp_c}}°</h5>         
         </aside>
         <aside>
+            <i class="fa-solid fa-sun sunrise"></i>
+            <p>Sunrise</p>
+            <p style="">{{data.astro.sunrise}}</p>
+        </aside>
+        <aside>
+            <i class="fa-solid fa-sun sunset"></i>
+            <p>Sunset</p>
+            <p>{{data.astro.sunset}}</p>
+        </aside>
+        <aside>
         <img :src="data.day.condition.icon" alt="">
         <p>{{data.day.condition.text}}</p>
         </aside>
+
         </section>
     </article>
     </section>
@@ -77,13 +88,11 @@ article{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* padding:1vh 1vh 1vh 1vh ; */
-    /* align-items: center; */
-    /* text-align: center; */
     background-color: #50afe9;
     color: white;
     border-radius: 4px;
     height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
 }
 aside {
@@ -91,14 +100,14 @@ aside {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     width: 30%;
 }
 .header {
         background-color: #0b99e5;
         display: flex;
         justify-content: space-between;
-    /* height: 7vh; */
-    padding: 1vh;
+        padding: 1vh;
 }
 .inner-tab{
     display: flex;
@@ -107,6 +116,14 @@ aside {
 }
 h5 {
     font-size: 60px;
+}
+
+.sunset {
+    color: rgb(246, 175, 43);
+}
+
+.sunrise {
+    color: yellow;
 }
 
 

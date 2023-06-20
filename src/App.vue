@@ -26,8 +26,5 @@ import ForecastVue from './components/Forecast.vue'
   .main{
     display: flex;
     justify-content:center;
-    /* padding: 7vh; */
-
-
   }
 </style>
