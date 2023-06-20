@@ -39,10 +39,10 @@ export default {
                  console.log(this.show);
 
                  await fetch(this.api).then(res=>res.json()).then(data=>this.weatherData=data);
-                 console.log(this.weatherData)
+                //  console.log(this.weatherData)
                  this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
                  this.hour=new Date(this.weatherData.location?.localtime_epoch*1000).getHours();
-                 console.log(`${(this.hour).getHours()}`)
+                //  console.log(`${(this.hour).getHours()}`)
             } catch(e) {
                 console.log(e);
             }
