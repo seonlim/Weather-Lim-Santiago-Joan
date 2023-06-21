@@ -2,18 +2,14 @@
 import HelloWorld from './components/HelloWorld.vue'
 import NavComponent from './components/NavBar.vue'
 import FooterComponent from './components/Footer.vue'
+import Header from './components/Header.vue'
 import CurrentData from './services/Current.vue'
 import ForecastVue from './components/Forecast.vue'
 </script>
 
 <template>
-  <header>
-    <!-- <h4></h4>
-    <div class="wrapper">
-      <HelloWorld msg="Weather App" />
-    </div> -->
+    <Header/>
     <NavComponent/>
-  </header>
   <FooterComponent/>
   <CurrentData/>
   <section class="main">
@@ -23,6 +19,10 @@ import ForecastVue from './components/Forecast.vue'
 </template>
 
 <style scoped>
+#app{
+  align-items: center;
+  justify-content: center;
+}
   .main{
     display: flex;
     justify-content:center;
