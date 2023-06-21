@@ -1,8 +1,11 @@
 <template>
 <section class="container">
+     <Transition name="fade" appear>
+    <Modal v-if="modal" @closeModal="closeModalfromChild($event)" :dayData="modalData"/>
+      </Transition>
     <h2>10 Day Forecast</h2>
     <section class="tab">
-    <article v-for="(data,index) in forecastData" :key="index">
+    <article @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
         <p class="header"><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
         <section class="inner-tab">
         <aside>
@@ -31,18 +34,20 @@
 </template>
 
 <script>
-
+import Modal from './Modal.vue';
 export default {
     name:'Forecast',
     components:{
-  
+        Modal
     },
     data() {
 
         return {
             api: "/src/services/forecastResponse.json",
             forecastData:{},
-            week:''
+            week:'',
+            modal:false, 
+            modalData:{}
         }
         
     },
@@ -52,12 +57,22 @@ export default {
             try{
 
                  await fetch(this.api).then(res=>res.json()).then(data=>this.forecastData=data.forecast.forecastday);
-                console.log(this.forecastData[0]);
+                console.log(this.forecastData);
                  this.week = new Date(this.forecastData[0].date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})
-                    console.log(this.week)
+                    // console.log(this.week)
             } catch(e) {
                 console.log(e);
             }
+        },
+
+        showModal(i){
+            console.log(i)
+            this.modal=true;
+            this.modalData=this.forecastData[i];
+        },
+        closeModalfromChild(modalState){
+            this.modal=modalState
+            // console.log(modalState)
         }
 
     },
@@ -84,8 +99,9 @@ width: 80%;
 
 }
 article{
-    width: 70%;
+    width: 80%;
     display: flex;
+    cursor: pointer;
     flex-direction: column;
     justify-content: space-between;
     background-color: #50afe9;
@@ -126,5 +142,13 @@ h5 {
     color: yellow;
 }
 
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.4s ease;
+}
 
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>

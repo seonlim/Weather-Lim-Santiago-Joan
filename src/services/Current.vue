@@ -1,6 +1,6 @@
 <template>
     <section class="container">
-        <article :class="{background:true,sunset:(hour>=19 && hour<=21), sunrise:(hour>=5 && hour<=7), night:hour>=22 || hour<=4,day:(hour>=8 && hour<=18) }">
+        <article :class="{background:true,sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=22 || hour<=4,day:(hour>=8 && hour<=18) }">
             <aside>
                 <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>
                 <h2>{{weatherData.current?.temp_c}}°</h2>
