@@ -1,6 +1,6 @@
 <template>
     <section class="container">
-        <article :class="{background:true,sunset:(hourFormatter>=19 && hourFormatter<=20), sunrise:(hourFormatter>=5 && hourFormatter<=7), night:hourFormatter>=22 || hourFormatter<=4,day:(hourFormatter>=8 && hourFormatter<=18) }">
+        <article v-if="!error" :class="{background:true,sunset:(hourFormatter>=19 && hourFormatter<=20), sunrise:(hourFormatter>=5 && hourFormatter<=7), night:hourFormatter>=22 || hourFormatter<=4,day:(hourFormatter>=8 && hourFormatter<=18) }">
             <aside>
                 <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>
                 <h2>{{weatherData.current?.temp_c}}°</h2>
@@ -12,6 +12,12 @@
                 <p>{{this.weatherData.location?.localtime}}</p>
             </aside>
 
+        </article>
+        <article v-else class="background">
+            <div class="error-container">
+            <img class="gif" src="/src/assets/img/cloud.gif" alt="cloud">
+            <p class="text">We could not find the city <span>{{city}}</span></p>
+            </div>
         </article>
     </section>
 </template>
@@ -31,7 +37,7 @@
             weatherData:{},
             dateFormat:"",
             hour:"",
-            show:true
+            error:false
         }
         
     },
@@ -45,12 +51,16 @@
         
         async getData(cities="Vancouver"){
             try{
-                 console.log(this.show);
-                //  await fetch(`http://api.weatherapi.com/v1/current.json?key=3fba2596a97d4f74b1014949231406&q=${cities}&aqi=no`).then(res=>{
+                 await fetch(`http://api.weatherapi.com/v1/current.json?key=3fba2596a97d4f74b1014949231406&q=${cities}&aqi=no`).then(res=>{
                     if(!res.ok) {
+                        this.error=true;
+
                         return Promise.reject(response);
-                    }
+                    }else {
+                        this.error=false;
                     return res.json()
+
+                    }
                  }).then(data=>this.weatherData=data);
                 //  console.log(this.weatherData)
                 //  this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
@@ -86,6 +96,20 @@ padding: 7vh;
 display: flex;
 justify-content: center;
 }
+.error-container {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+.error-container p {
+    font-size: 35px;
+}
+.error-container span {
+    font-weight: bold;
+}
 .background {
     background-position: top;
     padding: 3vh;
@@ -115,6 +139,11 @@ justify-content: center;
 }
 .day {
     background-image: url("https://i.pinimg.com/originals/f1/3d/a2/f13da27bb30ffbd69cb504d52767e1b9.jpg");
+}
+
+.gif {
+    width: 50vh;
+    height: 50vh;
 }
 
 aside {
