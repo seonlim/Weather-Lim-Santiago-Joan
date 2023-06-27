@@ -20,7 +20,7 @@ function searchCity(cityReceived) {
   <FooterComponent/>
   <CurrentData :city="city"/>
   <section class="main">
-  <ForecastVue/>
+  <ForecastVue :city="city"/>
   <p>Other Components</p>
   </section>
 </template>

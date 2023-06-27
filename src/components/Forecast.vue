@@ -37,26 +37,34 @@
 import Modal from './Modal.vue';
 export default {
     name:'Forecast',
+    props:{
+        city:String
+    },
     components:{
         Modal
     },
     data() {
 
         return {
-            api: "/src/services/forecastResponse.json",
+            // api: "/src/services/forecastResponse.json",
+            api:`http://api.weatherapi.com/v1/forecast.json?key=3fba2596a97d4f74b1014949231406&q=${this.city}&days=10&aqi=no&alerts=no`,
             forecastData:{},
             week:'',
             modal:false, 
             modalData:{}
         }
         
+    },  watch:{
+        city(newV,oldV) {
+            this.getForecast(newV)
+        }
     },
     methods:{
         
-        async getForecast(){
+        async getForecast(cities="Vancouver"){
             try{
 
-                 await fetch(this.api).then(res=>res.json()).then(data=>this.forecastData=data.forecast.forecastday);
+                 await fetch(`http://api.weatherapi.com/v1/forecast.json?key=3fba2596a97d4f74b1014949231406&q=${cities}&days=10&aqi=no&alerts=no`).then(res=>res.json()).then(data=>this.forecastData=data.forecast.forecastday);
                 console.log(this.forecastData);
                  this.week = new Date(this.forecastData[0].date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})
                     // console.log(this.week)
