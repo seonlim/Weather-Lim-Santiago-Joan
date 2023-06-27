@@ -1,36 +1,35 @@
 <template>
-<section class="container">
-     <Transition name="fade" appear>
-    <Modal v-if="modal" @closeModal="closeModalfromChild($event)" :dayData="modalData"/>
-      </Transition>
-    <h2>10 Day Forecast</h2>
-    <section class="tab">
-    <article @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
-        <p class="header"><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
-        <section class="inner-tab">
-        <aside>
-        <h5>{{data.day.avgtemp_c}}°</h5>         
-        </aside>
-        <aside>
-            <i class="fa-solid fa-sun sunrise"></i>
-            <p>Sunrise</p>
-            <p style="">{{data.astro.sunrise}}</p>
-        </aside>
-        <aside>
-            <i class="fa-solid fa-sun sunset"></i>
-            <p>Sunset</p>
-            <p>{{data.astro.sunset}}</p>
-        </aside>
-        <aside>
-        <img :src="data.day.condition.icon" alt="">
-        <p>{{data.day.condition.text}}</p>
-        </aside>
+    <section class="container">
+        <Transition name="fade" appear>
+        <Modal v-if="modal" @closeModal="closeModalfromChild($event)" :dayData="modalData"/>
+        </Transition>
+        <h2>10 Day Forecast</h2>
+        <section class="tab">
+        <article @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
+            <p class="header"><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
+            <section class="inner-tab">
+            <aside>
+            <h5>{{data.day.avgtemp_c}}°</h5>         
+            </aside>
+            <aside>
+                <i class="fa-solid fa-sun sunrise"></i>
+                <p>Sunrise</p>
+                <p style="">{{data.astro.sunrise}}</p>
+            </aside>
+            <aside>
+                <i class="fa-solid fa-sun sunset"></i>
+                <p>Sunset</p>
+                <p>{{data.astro.sunset}}</p>
+            </aside>
+            <aside>
+            <img :src="data.day.condition.icon" alt="">
+            <p>{{data.day.condition.text}}</p>
+            </aside>
 
+            </section>
+        </article>
         </section>
-    </article>
     </section>
-
-</section>
 </template>
 
 <script>
@@ -38,10 +37,9 @@ import Modal from './Modal.vue';
 export default {
     name:'Forecast',
     components:{
-        Modal
+        Modal,
     },
     data() {
-
         return {
             api: "/src/services/forecastResponse.json",
             forecastData:{},
