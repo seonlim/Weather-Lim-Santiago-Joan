@@ -9,7 +9,8 @@
         <p class="header"><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
         <section class="inner-tab">
         <aside>
-        <h5>{{data.day.avgtemp_c}}°</h5>         
+            <h5 v-if="temp=='' || temp=='C'">{{data.day.avgtemp_c}}°C</h5>
+            <h5 v-else>{{data.day.avgtemp_f}}°F</h5>
         </aside>
         <aside>
             <i class="fa-solid fa-sun sunrise"></i>
@@ -38,7 +39,8 @@ import Modal from './Modal.vue';
 export default {
     name:'Forecast',
     props:{
-        city:String
+        city:String,
+        temp:String
     },
     components:{
         Modal

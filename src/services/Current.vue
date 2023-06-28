@@ -1,9 +1,10 @@
 <template>
     <section class="container">
-        <article v-if="!error" :class="{background:true,sunset:(hourFormatter>=19 && hourFormatter<=20), sunrise:(hourFormatter>=5 && hourFormatter<=7), night:hourFormatter>=22 || hourFormatter<=4,day:(hourFormatter>=8 && hourFormatter<=18) }">
+        <article v-if="!error" :class="{background:true,sunset:(hourFormatter>=19 && hourFormatter<=20), sunrise:(hourFormatter>=5 && hourFormatter<=7), night:hourFormatter>=21 || hourFormatter<=4,day:(hourFormatter>=8 && hourFormatter<=18) }">
             <aside>
-                <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>
-                <h2>{{weatherData.current?.temp_c}}°</h2>
+                <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>       
+                <h2 v-if="temp=='' || temp=='C'">{{weatherData.current?.temp_c}}°C</h2>
+                <h2 v-if="temp=='F'">{{weatherData.current?.temp_f}}°F</h2>
                 <h5>{{weatherData.current?.condition.text}}</h5>
                 <img :src="weatherData.current?.condition.icon" alt="">
                 <h6><i class="fa-solid fa-temperature-quarter"></i> UV Index: {{weatherData.current?.uv}}</h6>
@@ -27,7 +28,8 @@
     export default {
     name:'CurrentData',
     props:{
-        city:String
+        city:String,
+        temp:String
     },
     data() {
 
@@ -92,7 +94,7 @@
 </script>
 <style scoped>
 .container {
-padding: 7vh;
+padding: 4vh 7vh 7vh 7vh;
 display: flex;
 justify-content: center;
 }
@@ -173,5 +175,13 @@ h6 {
 p {
     font-size: 25px;
 
+}
+.fade-enter-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
