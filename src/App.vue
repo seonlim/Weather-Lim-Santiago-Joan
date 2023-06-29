@@ -9,13 +9,15 @@ import TypeSelector from './components/TypeSelector.vue'
 import {ref} from 'vue'
 const city = ref('');
 const temp = ref('');
-
-
+const hour = ref('');
 function searchCity(cityReceived) {
   city.value=cityReceived;
 }
 function tempHandler(temperature) {
 temp.value=temperature;
+}
+function sendHour(hourR){
+hour.value=hourR;
 }
 </script>
 
@@ -24,11 +26,11 @@ temp.value=temperature;
     <NavComponent/>
     <section class="front">
   <TypeSelector @tempType="tempHandler"/>
-  <CurrentData :temp="temp"  :city="city"/>
+  <CurrentData @hourDay="sendHour" :temp="temp"  :city="city"/>
     </section>
   <FooterComponent/>
   <section class="main">
-  <ForecastVue :temp="temp" :city="city"/>
+  <ForecastVue :hour="hour" :temp="temp" :city="city"/>
   <p>Other Components</p>
   </section>
 </template>

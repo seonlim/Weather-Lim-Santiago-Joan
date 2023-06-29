@@ -5,20 +5,20 @@
       </Transition>
     <h2>10 Day Forecast</h2>
     <section class="tab">
-    <article @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
-        <p class="header"><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
+    <article :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }" @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
+        <p :class="{header:true,sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }" ><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
         <section class="inner-tab">
         <aside>
             <h5 v-if="temp=='' || temp=='C'">{{data.day.avgtemp_c}}°C</h5>
             <h5 v-else>{{data.day.avgtemp_f}}°F</h5>
         </aside>
         <aside>
-            <i class="fa-solid fa-sun sunrise"></i>
+            <i class="fa-solid fa-sun sunrise-i"></i>
             <p>Sunrise</p>
             <p style="">{{data.astro.sunrise}}</p>
         </aside>
         <aside>
-            <i class="fa-solid fa-sun sunset"></i>
+            <i class="fa-solid fa-sun sunset-i"></i>
             <p>Sunset</p>
             <p>{{data.astro.sunset}}</p>
         </aside>
@@ -40,7 +40,8 @@ export default {
     name:'Forecast',
     props:{
         city:String,
-        temp:String
+        temp:String, 
+        hour:Number
     },
     components:{
         Modal
@@ -49,7 +50,7 @@ export default {
 
         return {
             // api: "/src/services/forecastResponse.json",
-            api:`http://api.weatherapi.com/v1/forecast.json?key=3fba2596a97d4f74b1014949231406&q=${this.city}&days=10&aqi=no&alerts=no`,
+            api:`http://api.weatherapi.com/v1/forecast.json?key=3fba4b1031406&q=${this.city}&days=10&aqi=no&alerts=no`,
             forecastData:{},
             week:'',
             modal:false, 
@@ -66,7 +67,7 @@ export default {
         async getForecast(cities="Vancouver"){
             try{
 
-                 await fetch(`http://api.weatherapi.com/v1/forecast.json?key=3fba2596a97d4f74b1014949231406&q=${cities}&days=10&aqi=no&alerts=no`).then(res=>res.json()).then(data=>this.forecastData=data.forecast.forecastday);
+                 await fetch(`http://api.weatherapi.com/v1/forecast.json?key=2a14e50aa2e84b31b68232912232806&q=${cities}&days=10&aqi=no&alerts=no`).then(res=>res.json()).then(data=>this.forecastData=data.forecast.forecastday);
                 console.log(this.forecastData);
                  this.week = new Date(this.forecastData[0].date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})
                     // console.log(this.week)
@@ -88,6 +89,7 @@ export default {
     },
     created(){
         this.getForecast();
+        console.log('Hour in forecast:',this.hour)
     }
 }
 </script>
@@ -114,7 +116,7 @@ article{
     cursor: pointer;
     flex-direction: column;
     justify-content: space-between;
-    background-color: #50afe9;
+    /* background-color: #50afe9; */
     color: white;
     border-radius: 4px;
     height: fit-content;
@@ -130,10 +132,43 @@ aside {
     width: 30%;
 }
 .header {
-        background-color: #0b99e5;
+        /* background-color: #0b99e5; */
         display: flex;
         justify-content: space-between;
         padding: 1vh;
+}
+
+.day {
+  background-color: #0b99e5  
+}
+
+.dayS {
+   background-color: #50afe9; 
+
+}
+
+.night{
+background-color: #27374D;
+}
+.nightS{
+background-color: #526D82;
+}
+.sunset {
+  background-color: #884A39;
+
+}
+
+.sunrise{
+background-color: #A0C49D;
+}
+
+.sunriseS{
+background-color: #C4D7B2;
+}
+
+.sunsetS{
+  background-color: #C38154;
+
 }
 .inner-tab{
     display: flex;
@@ -144,13 +179,7 @@ h5 {
     font-size: 60px;
 }
 
-.sunset {
-    color: rgb(246, 175, 43);
-}
 
-.sunrise {
-    color: yellow;
-}
 
 .fade-enter-active,
 .fade-leave-active {
@@ -160,5 +189,13 @@ h5 {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+.sunrise-i{
+    color: yellow;
+
+}
+.sunset-i {
+    color: rgb(246, 175, 43);
+
 }
 </style>

@@ -53,7 +53,7 @@
         
         async getData(cities="Vancouver"){
             try{
-                 await fetch(`http://api.weatherapi.com/v1/current.json?key=3fba2596a97d4f74b1014949231406&q=${cities}&aqi=no`).then(res=>{
+                 await fetch(`http://api.weatherapi.com/v1/current.json?key=2a14e50aa2e84b31b68232912232806&q=${cities}&aqi=no`).then(res=>{
                     if(!res.ok) {
                         this.error=true;
 
@@ -84,6 +84,7 @@
             if(!hours) {
                 hours = Number(this.weatherData.location?.localtime.split(' ')[1].slice(0,1));
             }
+            this.$emit('hourDay',hours);
             return hours;
         }
     },
