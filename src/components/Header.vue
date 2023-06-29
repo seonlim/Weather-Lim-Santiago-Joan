@@ -2,9 +2,9 @@
     <div id="header">
         <header>
             <h1>Sunny Weather</h1>
-            <form action="">
-                <input type="search">
-                <button type="submit" class="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <form >
+                <input v-model="searchCity" placeholder="City..." type="search">
+                <button @click="handleSearch" type="submit" class="search"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
         </header>
     </div>
@@ -14,9 +14,16 @@
 
 export default {
     name:'Header', 
-    setup(){
+    data(){
         return {
-
+            searchCity:''
+        }
+    },
+    methods:{
+        handleSearch(e) {
+            e.preventDefault();
+            // console.log(this.searchCity);
+            this.$emit('city',this.searchCity)
         }
     }
 }
@@ -46,6 +53,7 @@ h1{
 form{
     display: flex;
     align-items: center;
+    padding-right:10vw ;
     
 }
 input{
@@ -57,6 +65,12 @@ input{
     border-top-left-radius: 5px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 5px;
+    width: 30vw;
+}
+
+input:focus {
+    /* : red; */
+    outline-color: dodgerblue;
 }
 button{
     padding: 8px;
