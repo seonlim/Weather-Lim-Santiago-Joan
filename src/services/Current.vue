@@ -67,6 +67,8 @@
                 //  console.log(this.weatherData)
                 //  this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
                 //  this.hour=new Date(this.weatherData.location?.localtime_epoch*1000).getHours();
+                this.$emit("dataWeather",this.weatherData)
+               
             } catch(e) {
                 // console.log(e);
                 console.log('Ciudad no encontrada')

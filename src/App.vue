@@ -5,8 +5,13 @@ import FooterComponent from './components/Footer.vue'
 import Header from './components/Header.vue'
 import CurrentData from './services/Current.vue'
 import ForecastVue from './components/Forecast.vue'
+import Informations from './components/Informations.vue'
 import TypeSelector from './components/TypeSelector.vue'
-import {ref} from 'vue'
+import { ref } from 'vue'
+const infoWeather = ref({})
+function sendData(weatherD){
+infoWeather.value=weatherD;
+}
 const city = ref('');
 const temp = ref('');
 const hour = ref('');
@@ -26,12 +31,12 @@ hour.value=hourR;
     <NavComponent/>
     <section class="front">
   <TypeSelector @tempType="tempHandler"/>
-  <CurrentData @hourDay="sendHour" :temp="temp"  :city="city"/>
+  <CurrentData @dataWeather="sendData" @hourDay="sendHour" :temp="temp"  :city="city"/>
     </section>
   <FooterComponent/>
   <section class="main">
   <ForecastVue :hour="hour" :temp="temp" :city="city"/>
-  <p>Other Components</p>
+      <Informations :infoWeather="infoWeather"/>
   </section>
 </template>
 
@@ -40,8 +45,8 @@ hour.value=hourR;
   align-items: center;
   justify-content: center;
 }
-  .main{
-    display: flex;
-    justify-content:center;
-  }
+.main{
+  display: flex;
+  justify-content:center;
+}
 </style>

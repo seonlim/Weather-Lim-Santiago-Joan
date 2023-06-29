@@ -1,8 +1,12 @@
 <template>
-<section class="container">
-     <Transition name="fade" appear>
-    <Modal v-if="modal" @closeModal="closeModalfromChild($event)" :dayData="modalData"/>
-      </Transition>
+  <section class="container">
+    <Transition name="fade" appear>
+      <Modal
+        v-if="modal"
+        @closeModal="closeModalfromChild($event)"
+        :dayData="modalData"
+      />
+    </Transition>
     <h2>10 Day Forecast</h2>
     <section class="tab">
     <article :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }" @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
@@ -20,22 +24,20 @@
         <aside>
             <i class="fa-solid fa-sun sunset-i"></i>
             <p>Sunset</p>
-            <p>{{data.astro.sunset}}</p>
-        </aside>
-        <aside>
-        <img :src="data.day.condition.icon" alt="">
-        <p>{{data.day.condition.text}}</p>
-        </aside>
-
+            <p>{{ data.astro.sunset }}</p>
+          </aside>
+          <aside>
+            <img :src="data.day.condition.icon" alt="" />
+            <p>{{ data.day.condition.text }}</p>
+          </aside>
         </section>
-    </article>
+      </article>
     </section>
-
-</section>
+  </section>
 </template>
 
 <script>
-import Modal from './Modal.vue';
+import Modal from "./Modal.vue";
 export default {
     name:'Forecast',
     props:{
@@ -46,7 +48,6 @@ export default {
     components:{
         Modal
     },
-    data() {
 
         return {
             // api: "/src/services/forecastResponse.json",
@@ -95,21 +96,21 @@ export default {
 </script>
 <style scoped>
 .container {
-/* padding: 7vh;*/
-display: flex;
-flex-direction: column;
-justify-content: start;
-row-gap: 1vh;
-width: 80%; 
-
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  row-gap: 1vh;
+  width: 100%;
 }
+
 .tab {
-    display: flex; 
-    flex-direction: column;
-    row-gap: 1vh;
-    width: 60%; 
-
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  row-gap: 1vh;
 }
+
 article{
     width: 80%;
     display: flex;
@@ -124,12 +125,12 @@ article{
 
 }
 aside {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 30%;
 }
 .header {
         /* background-color: #0b99e5; */
@@ -176,9 +177,8 @@ background-color: #C4D7B2;
     justify-content: space-between;
 }
 h5 {
-    font-size: 60px;
+  font-size: 60px;
 }
-
 
 
 .fade-enter-active,
