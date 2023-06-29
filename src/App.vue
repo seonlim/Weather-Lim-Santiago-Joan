@@ -5,15 +5,32 @@ import FooterComponent from './components/Footer.vue'
 import Header from './components/Header.vue'
 import CurrentData from './services/Current.vue'
 import ForecastVue from './components/Forecast.vue'
+import TypeSelector from './components/TypeSelector.vue'
+import {ref} from 'vue'
+const city = ref('');
+const temp = ref('');
+const hour = ref('');
+function searchCity(cityReceived) {
+  city.value=cityReceived;
+}
+function tempHandler(temperature) {
+temp.value=temperature;
+}
+function sendHour(hourR){
+hour.value=hourR;
+}
 </script>
 
 <template>
-    <Header/>
+    <Header @city="searchCity($event)"/>
     <NavComponent/>
+    <section class="front">
+  <TypeSelector @tempType="tempHandler"/>
+  <CurrentData @hourDay="sendHour" :temp="temp"  :city="city"/>
+    </section>
   <FooterComponent/>
-  <CurrentData/>
   <section class="main">
-  <ForecastVue/>
+  <ForecastVue :hour="hour" :temp="temp" :city="city"/>
   <p>Other Components</p>
   </section>
 </template>

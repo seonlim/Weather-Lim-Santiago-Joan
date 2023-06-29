@@ -1,53 +1,92 @@
 <template>
     <section class="container">
-        <article :class="{background:true,sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=22 || hour<=4,day:(hour>=8 && hour<=18) }">
+        <article v-if="!error" :class="{background:true,sunset:(hourFormatter>=19 && hourFormatter<=20), sunrise:(hourFormatter>=5 && hourFormatter<=7), night:hourFormatter>=21 || hourFormatter<=4,day:(hourFormatter>=8 && hourFormatter<=18) }">
             <aside>
-                <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>
-                <h2>{{weatherData.current?.temp_c}}°</h2>
+                <h3>{{weatherData.location?.name}} - {{weatherData.location?.region}} - {{weatherData.location?.country}} </h3>       
+                <h2 v-if="temp=='' || temp=='C'">{{weatherData.current?.temp_c}}°C</h2>
+                <h2 v-if="temp=='F'">{{weatherData.current?.temp_f}}°F</h2>
                 <h5>{{weatherData.current?.condition.text}}</h5>
                 <img :src="weatherData.current?.condition.icon" alt="">
                 <h6><i class="fa-solid fa-temperature-quarter"></i> UV Index: {{weatherData.current?.uv}}</h6>
             </aside>
             <aside>
-                <p>{{dateFormat}}</p>
+                <p>{{this.weatherData.location?.localtime}}</p>
             </aside>
 
+        </article>
+        <article v-else class="background">
+            <div class="error-container">
+            <img class="gif" src="/src/assets/img/cloud.gif" alt="cloud">
+            <p class="text">We could not find the city <span>{{city}}</span></p>
+            </div>
         </article>
     </section>
 </template>
 
 
 <script>
-
-export default {
+    export default {
     name:'CurrentData',
+    props:{
+        city:String,
+        temp:String
+    },
     data() {
 
         return {
             api: "/src/services/currentResponse.json",
+            // api: `http://api.weatherapi.com/v1/current.json?key=3fba2596a97d4f74b1014949231406&q=${this.city}&aqi=no`,
             weatherData:{},
             dateFormat:"",
             hour:"",
-            show:true
+            error:false
         }
         
     },
+
+    watch:{
+        city(newV,oldV) {
+            this.getData(newV)
+        }
+    },  
     methods:{
         
-        async getData(){
+        async getData(cities="Vancouver"){
             try{
-                 console.log(this.show);
+                 await fetch(`http://api.weatherapi.com/v1/current.json?key=2a14e50aa2e84b31b68232912232806&q=${cities}&aqi=no`).then(res=>{
+                    if(!res.ok) {
+                        this.error=true;
 
-                 await fetch(this.api).then(res=>res.json()).then(data=>this.weatherData=data);
+                        return Promise.reject(response);
+                    }else {
+                        this.error=false;
+                    return res.json()
+
+                    }
+                 }).then(data=>this.weatherData=data);
                 //  console.log(this.weatherData)
-                 this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
-                 this.hour=new Date(this.weatherData.location?.localtime_epoch*1000).getHours();
-                //  console.log(`${(this.hour).getHours()}`)
+                //  this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
+                //  this.hour=new Date(this.weatherData.location?.localtime_epoch*1000).getHours();
             } catch(e) {
-                console.log(e);
+                // console.log(e);
+                console.log('Ciudad no encontrada')
             }
         }
 
+    },
+    computed:{
+        dateFormatter:function(){
+            let dates = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            return dates
+        },
+        hourFormatter:function(){
+            let hours = Number(this.weatherData.location?.localtime.split(' ')[1].slice(0,2));
+            if(!hours) {
+                hours = Number(this.weatherData.location?.localtime.split(' ')[1].slice(0,1));
+            }
+            this.$emit('hourDay',hours);
+            return hours;
+        }
     },
     created(){
         this.getData();
@@ -56,9 +95,23 @@ export default {
 </script>
 <style scoped>
 .container {
-padding: 7vh;
+padding: 4vh 7vh 7vh 7vh;
 display: flex;
 justify-content: center;
+}
+.error-container {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+.error-container p {
+    font-size: 35px;
+}
+.error-container span {
+    font-weight: bold;
 }
 .background {
     background-position: top;
@@ -91,6 +144,11 @@ justify-content: center;
     background-image: url("https://i.pinimg.com/originals/f1/3d/a2/f13da27bb30ffbd69cb504d52767e1b9.jpg");
 }
 
+.gif {
+    width: 50vh;
+    height: 50vh;
+}
+
 aside {
     display: flex;
     flex-direction: column;
@@ -118,5 +176,13 @@ h6 {
 p {
     font-size: 25px;
 
+}
+.fade-enter-active {
+  transition: opacity 0.4s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
