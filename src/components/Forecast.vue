@@ -48,7 +48,7 @@ export default {
     components:{
         Modal
     },
-
+        data() {
         return {
             // api: "/src/services/forecastResponse.json",
             api:`http://api.weatherapi.com/v1/forecast.json?key=3fba4b1031406&q=${this.city}&days=10&aqi=no&alerts=no`,
@@ -57,13 +57,13 @@ export default {
             modal:false, 
             modalData:{}
         }
-        
-    },  watch:{
+        },
+            watch:{
         city(newV,oldV) {
             this.getForecast(newV)
         }
     },
-    methods:{
+      methods:{
         
         async getForecast(cities="Vancouver"){
             try{
@@ -88,11 +88,12 @@ export default {
         }
 
     },
-    created(){
+            created(){
         this.getForecast();
         console.log('Hour in forecast:',this.hour)
     }
-}
+    } 
+
 </script>
 <style scoped>
 .container {
