@@ -56,10 +56,11 @@ footer {
     display: flex;
     flex-direction: column;
     height: 30vh;
-    background-color: black;
-    color: whitesmoke;
+    background-color: white;
+    color: rgb(69, 114, 159);
     row-gap: 3vh;
     justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 footer > article {
@@ -75,6 +76,7 @@ footer > section {
     flex-direction: column;
     align-items: center;
     row-gap: 1vh;
+
 }
 
 footer a,
@@ -87,7 +89,8 @@ footer p {
 }
 
 footer a {
-    color: whitesmoke;
+    color: rgb(69, 114, 159);
+
 }
 
 

@@ -33,11 +33,12 @@ hour.value=hourR;
   <TypeSelector @tempType="tempHandler"/>
   <CurrentData @dataWeather="sendData" @hourDay="sendHour" :temp="temp"  :city="city"/>
     </section>
-  <FooterComponent/>
   <section class="main">
   <ForecastVue :hour="hour" :temp="temp" :city="city"/>
       <Informations :infoWeather="infoWeather"/>
   </section>
+  <FooterComponent/>
+
 </template>
 
 <style scoped>
@@ -48,5 +49,6 @@ hour.value=hourR;
 .main{
   display: flex;
   justify-content:center;
+  padding-bottom: 4vh;
 }
 </style>
