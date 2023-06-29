@@ -43,6 +43,7 @@ export default {
                  this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
                  this.hour=new Date(this.weatherData.location?.localtime_epoch*1000).getHours();
                 //  console.log(`${(this.hour).getHours()}`)
+                this.$emit("dataWeather",this.weatherData)
             } catch(e) {
                 console.log(e);
             }
