@@ -7,32 +7,34 @@
         :dayData="modalData"
       />
     </Transition>
-    <h2>10 Day Forecast</h2>
-    <section class="tab">
-    <article :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }" @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
-        <p :class="{header:true,sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }" ><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
-        <section class="inner-tab">
-        <aside>
-            <h5 v-if="temp=='' || temp=='C'">{{data.day.avgtemp_c}}°C</h5>
-            <h5 v-else>{{data.day.avgtemp_f}}°F</h5>
-        </aside>
-        <aside>
-            <i class="fa-solid fa-sun sunrise-i"></i>
-            <p>Sunrise</p>
-            <p style="">{{data.astro.sunrise}}</p>
-        </aside>
-        <aside>
-            <i class="fa-solid fa-sun sunset-i"></i>
-            <p>Sunset</p>
-            <p>{{ data.astro.sunset }}</p>
+    <div class="forecast">
+      <h2>10 Day Forecast</h2>
+      <section class="tab">
+        <article :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }" @click="showModal(index)" v-for="(data,index) in forecastData" :key="index">
+          <p :class="{header:true,sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }" ><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
+          <section class="inner-tab">
+          <aside>
+              <h5 v-if="temp=='' || temp=='C'">{{data.day.avgtemp_c}}°C</h5>
+              <h5 v-else>{{data.day.avgtemp_f}}°F</h5>
           </aside>
           <aside>
-            <img :src="data.day.condition.icon" alt="" />
-            <p>{{ data.day.condition.text }}</p>
+              <i class="fa-solid fa-sun sunrise-i"></i>
+              <p>Sunrise</p>
+              <p style="">{{data.astro.sunrise}}</p>
           </aside>
-        </section>
-      </article>
-    </section>
+          <aside>
+              <i class="fa-solid fa-sun sunset-i"></i>
+              <p>Sunset</p>
+              <p>{{ data.astro.sunset }}</p>
+            </aside>
+            <aside>
+              <img :src="data.day.condition.icon" alt="" />
+              <p>{{ data.day.condition.text }}</p>
+            </aside>
+          </section>
+        </article>
+      </section>
+    </div>
   </section>
 </template>
 
@@ -99,21 +101,26 @@ export default {
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   row-gap: 1vh;
+  width: 40%;
+}
+
+.forecast {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2vh;
   width: 100%;
 }
 
 .tab {
   display: flex;
-  width: 100%;
   flex-direction: column;
   row-gap: 1vh;
+  align-items: center;
 }
 
-article{
-    width: 80%;
+.tab article {
+    width: 100%;
     display: flex;
     cursor: pointer;
     flex-direction: column;
@@ -134,10 +141,10 @@ aside {
   width: 30%;
 }
 .header {
-        /* background-color: #0b99e5; */
-        display: flex;
-        justify-content: space-between;
-        padding: 1vh;
+  /* background-color: #0b99e5; */
+  display: flex;
+  justify-content: space-between;
+  padding: 1vh;
 }
 
 .day {

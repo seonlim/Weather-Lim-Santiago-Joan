@@ -30,14 +30,14 @@ hour.value=hourR;
     <Header @city="searchCity($event)"/>
     <NavComponent/>
     <section class="front">
-  <TypeSelector @tempType="tempHandler"/>
-  <CurrentData @dataWeather="sendData" @hourDay="sendHour" :temp="temp"  :city="city"/>
+      <TypeSelector @tempType="tempHandler"/>
+      <CurrentData @dataWeather="sendData" @hourDay="sendHour" :temp="temp"  :city="city"/>
     </section>
-  <section class="main">
-  <ForecastVue :hour="hour" :temp="temp" :city="city"/>
+    <section class="contents">
+      <ForecastVue :hour="hour" :temp="temp" :city="city"/>
       <Informations :infoWeather="infoWeather"/>
-  </section>
-  <FooterComponent/>
+    </section>
+    <FooterComponent/>
 
 </template>
 
@@ -46,9 +46,9 @@ hour.value=hourR;
   align-items: center;
   justify-content: center;
 }
-.main{
+
+.contents{
   display: flex;
-  justify-content:center;
-  padding-bottom: 4vh;
+  justify-content: space-evenly;
 }
 </style>

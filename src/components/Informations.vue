@@ -2,35 +2,39 @@
   <section class="informations">
     <h3>Additional Information</h3>
     <article>
-      <div class="info">
-        <section>
-          <img src="/src/assets/img/temperature.png" alt="temperature" />
-          <small>Feels Like </small>
-        </section>
-        <span>{{ infoWeather.current?.feelslike_c }} °C</span>
-        <p>Similar to the actual temperature.</p>
+      <div class="row">
+          <div class="info">
+            <section>
+              <img src="/src/assets/img/temperature.png" alt="temperature" />
+              <small>Feels Like </small>
+            </section>
+            <span>{{ infoWeather.current?.feelslike_c }} °C</span>
+            <p>Similar to the actual temperature.</p>
+          </div>
+          <div class="info">
+            <section>
+              <img src="/src/assets/img/uv.png" alt="uv" />
+              <small>UV Index</small>
+            </section>
+            <span>{{ infoWeather.current?.uv }}</span>
+            <small>{{getUVIndexLevel(infoWeather.current?.uv) }}</small>
+          </div>
       </div>
-      <div class="info">
-        <section>
-          <img src="/src/assets/img/uv.png" alt="uv" />
-          <small>UV Index</small>
-        </section>
-        <span>{{ infoWeather.current?.uv }}</span>
-        <small>{{getUVIndexLevel(infoWeather.current?.uv) }}</small>
-      </div>
-      <div class="info">
-        <section>
-          <img src="/src/assets/img/humidity.png" alt="humidity" />
-          <small>Humidity</small>
-        </section>
-        <span>{{ infoWeather.current?.humidity }} %</span>
-      </div>
-      <div class="info">
-        <section>
-          <img src="/src/assets/img/wind.png" alt="wind" />
-          <small>Wind</small>
-        </section>
-        <span>{{ infoWeather.current?.wind_kph }} km/h</span>
+      <div class="row">
+          <div class="info">
+            <section>
+              <img src="/src/assets/img/humidity.png" alt="humidity" />
+              <small>Humidity</small>
+            </section>
+            <span>{{ infoWeather.current?.humidity }} %</span>
+          </div>
+          <div class="info">
+            <section>
+              <img src="/src/assets/img/wind.png" alt="wind" />
+              <small>Wind</small>
+            </section>
+            <span>{{ infoWeather.current?.wind_kph }} km/h</span>
+          </div>
       </div>
     </article>
   </section>
@@ -73,12 +77,18 @@ export default {
   row-gap: 2vh;
   color: white;
   font-size: 20px;
+  /* width: 50%; */
 }
 
 .informations > article {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2vh;
+  flex-direction: column;
+  row-gap: 2vh;
+}
+
+.row {
+    display: flex;
+    column-gap: 2vh;
 }
 
 .informations h3 {
@@ -93,8 +103,8 @@ export default {
   padding: 3vh;
   border-radius: 20px;
   background-color: #50afe9;
-  width: 30vh;
-  height: 25fvh;
+  width: 34vh;
+  height: 27vh;
   text-align: center;
 }
 
