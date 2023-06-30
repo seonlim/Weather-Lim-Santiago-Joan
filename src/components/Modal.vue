@@ -1,30 +1,90 @@
 <template>
-                <div id="myModal" class="modal">
-                <div class="modal-content">
-                                    <aside>
-                                        <span @click="passModal" class="close">&times;</span>
-                                    </aside>  
-                            {{dayData.astro.sunrise}}
+  <div id="myModal" class="modal">
+  <div class="modal-content">
+    <aside>
+        <span @click="passModal" class="close">&times;</span>
+    </aside>  
+    <article >
+      <h2>{{dayData.date}}</h2>
+    </article>
+    <h1 style="font-size: 10vh;">{{dayData.day.avgtemp_c}}ºC</h1>
+    <section class="box2">
+      <a class="prev" @click="prevSlide">&#10094;</a>
+      <div class="time" v-for="hour,index in dayData.hour" :key="index" v-show="index === currentIndex">
+        <p>{{hour.time}}</p>
+        <img :src=hour.condition.icon alt="">
+        <p>{{hour.condition.text}}</p>
+        <p>{{hour.temp_c}} ºC</p>
+      </div>
+      <a class="next" @click="nextSlide">&#10095;</a>
+    </section>
+    <section class="big_box">
+      <div class="box">
+        <h2>Air Humidity</h2>
+        <p class="number">{{dayData.day.avghumidity}}%</p>
+      </div>
+      <div class="box">
+        <aside>
+          <h2>Condition</h2>
+          <img :src=dayData.day.condition.icon alt="">
+          <p>{{dayData.day.condition.text}}</p>
+        </aside>
+      </div>
+      <div class="box">
+        <h2>Max Temp</h2>
+        <p class="number">{{dayData.day.maxtemp_c}}ºC</p>
+      </div>
+      <div class="box">
+        <h2>Min Tempe</h2>
+        <p class="number">{{dayData.day.mintemp_c}}ºC</p>
+      </div>
+      <div class="box">
+        <h2>Air Speed</h2>
+        <p class="number">{{dayData.day.avgvis_km}}Km/h</p>
+      </div>
+      <div class="box">
+        <h2>UV Rays</h2>
+        <p class="number">{{dayData.day.uv}}</p>
+      </div>
+    </section>
+  {{dayData.astro.sunrise}}
 
                                 
-                </div>
-            </div>
+  </div>
+  </div>
 </template>
 
 <script>
 export default {
-    props:{
-        dayData:Object
+  data() {
+    return {
+      currentIndex: 0,
+      arrayIndex: [],
+    };
+  },
+  props:{
+    dayData:Object
+  },
+  methods:{
+    passModal() {
+      this.$emit('closeModal',false);
     },
-    methods:{
-        passModal() {
-            this.$emit('closeModal',false);
-        }
+    nextSlide() {
+      this.currentIndex++;
+      if (this.currentIndex >= this.dayData.hour.length) {
+        this.currentIndex = 0;
+      }
+    },
+    prevSlide() {
+      this.currentIndex--;
+      if (this.currentIndex < 0) {
+        this.currentIndex = this.dayData.hour.length - 1;
+      }
     }
-    // data() {
-
-        
-    // },
+  },
+    mounted() {
+    console.log(this.currentIndex);
+  }
 }
 </script>
 <style scoped>
@@ -86,5 +146,74 @@ export default {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+article{
+  display: flex;
+  justify-content: space-between;
+}
+.big_box{
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 3vh;
+  column-gap: 3vh;
+}
+.box{
+  display: flex;
+  flex-direction: column;
+  background-color: #4FAFE9;
+  row-gap: 4vh;
+  width: 40%;
+  height: 16vh;
+  padding: 4%;
+  align-items: center;
+}
+.box>aside{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.number{
+  font-size: 5vh;
+}
+.box2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.time{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.prev, .next {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.3s ease;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.prev {
+  border-radius: 3px 0 0 3px;
+  top: 0;
+  right: 0;
+}
+.next {
+  border-radius: 3px 0 0 3px;
+  top: 0;
+  left: 0;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+h1{
+  padding-bottom: 4vh;
 }
 </style>
