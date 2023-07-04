@@ -9,7 +9,7 @@
               <small>Feels Like </small>
             </section>
             <span>{{ infoWeather.current?.feelslike_c }} °C</span>
-            <p>Similar to the actual temperature.</p>
+            <p>{{ getTemperatureMessage }}</p>
           </div>
           <div class="info">
             <section>
@@ -35,7 +35,7 @@
             </section>
             <span>{{ infoWeather.current?.wind_kph }} km/h</span>
           </div>
-      </div>
+      </div> 
     </article>
   </section>
 </template>
@@ -52,7 +52,6 @@ export default {
     };
   },
   methods: {
-
     getUVIndexLevel(uvIndex) {
       if (uvIndex < 3) {
         return "Low";
@@ -66,6 +65,20 @@ export default {
         return "Extreme";
       }
     },
+  },
+  computed: {
+    getTemperatureMessage() {
+      const temperatureDifference = this.infoWeather.current?.feelslike_c - this.infoWeather.current?.temp_c;
+      if (temperatureDifference >= 10) {
+        return "It's too cold";
+      } else if (temperatureDifference >= 5) {
+        return "Significantly different from the actual temperature";
+      } else if (temperatureDifference >= 2) {
+        return "Little bit different from the actual temperature";
+      } else {
+        return "Similar to the actual temperature.";
+      }
+    }
   }
 };
 </script>
