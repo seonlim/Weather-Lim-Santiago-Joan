@@ -46,7 +46,8 @@
 
     watch:{
         city(newV,oldV) {
-            this.getData(newV)
+            this.getData(newV);
+            this.$emit('arrayCities',this.weatherData);
         }
     },  
     methods:{
@@ -64,7 +65,7 @@
 
                     }
                  }).then(data=>this.weatherData=data);
-                //  console.log(this.weatherData)
+                 console.log(this.weatherData)
                 //  this.dateFormat = new Date(this.weatherData.location?.localtime_epoch*1000).toLocaleString('en-US',{ weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
                 //  this.hour=new Date(this.weatherData.location?.localtime_epoch*1000).getHours();
                 this.$emit("dataWeather",this.weatherData)
@@ -100,6 +101,14 @@
 padding: 4vh 7vh 7vh 7vh;
 display: flex;
 justify-content: center;
+}
+
+.container article {
+    transition: .4s;
+}
+
+.container article:hover {
+    transform: scale(1.01);
 }
 .error-container {
     color: black;

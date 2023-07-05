@@ -1,10 +1,10 @@
 <template>
   <div id="myModal" class="modal">
-  <div class="modal-content">
+  <div class="modal-content" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
     <aside>
         <span @click="passModal" class="close">&times;</span>
     </aside>  
-    <article >
+    <article>
       <h2>{{dayData.date}}</h2>
     </article>
     <h1 style="font-size: 10vh;">{{dayData.day.avgtemp_c}}ºC</h1>
@@ -19,35 +19,34 @@
       <a class="next" @click="nextSlide">&#10095;</a>
     </section>
     <section class="big_box">
-      <div class="box">
+      <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>Air Humidity</h2>
         <p class="number">{{dayData.day.avghumidity}}%</p>
       </div>
-      <div class="box">
+      <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <aside>
           <h2>Condition</h2>
           <img :src=dayData.day.condition.icon alt="">
           <p>{{dayData.day.condition.text}}</p>
         </aside>
       </div>
-      <div class="box">
+      <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>Max Temp</h2>
         <p class="number">{{dayData.day.maxtemp_c}}ºC</p>
       </div>
-      <div class="box">
+      <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>Min Tempe</h2>
         <p class="number">{{dayData.day.mintemp_c}}ºC</p>
       </div>
-      <div class="box">
+      <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>Air Speed</h2>
         <p class="number">{{dayData.day.avgvis_km}}Km/h</p>
       </div>
-      <div class="box">
+      <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>UV Rays</h2>
         <p class="number">{{dayData.day.uv}}</p>
       </div>
     </section>
-  {{dayData.astro.sunrise}}
 
                                 
   </div>
@@ -63,7 +62,8 @@ export default {
     };
   },
   props:{
-    dayData:Object
+    dayData:Object,
+    hour:Number
   },
   methods:{
     passModal() {
@@ -111,7 +111,6 @@ export default {
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #0b99e5;
   margin: 2% auto;
   /* 15% from the top and centered */
   padding: 25px;
@@ -160,7 +159,6 @@ article{
 .box{
   display: flex;
   flex-direction: column;
-  background-color: #4FAFE9;
   row-gap: 4vh;
   width: 40%;
   height: 16vh;
@@ -215,5 +213,37 @@ article{
 }
 h1{
   padding-bottom: 4vh;
+}
+.day {
+  background-color: #0b99e5  
+}
+
+.dayS {
+   background-color: #50afe9; 
+
+}
+
+.night{
+background-color: #27374D;
+}
+.nightS{
+background-color: #526D82;
+}
+.sunset {
+  background-color: #884A39;
+
+}
+
+.sunrise{
+background-color: #A0C49D;
+}
+
+.sunriseS{
+background-color: #C4D7B2;
+}
+
+.sunsetS{
+  background-color: #C38154;
+
 }
 </style>

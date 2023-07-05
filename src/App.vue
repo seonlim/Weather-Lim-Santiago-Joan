@@ -15,8 +15,10 @@ infoWeather.value=weatherD;
 const city = ref('');
 const temp = ref('');
 const hour = ref('');
+const historyCities = ref([]);
 function searchCity(cityReceived) {
   city.value=cityReceived;
+  historyCities.value.push(cityReceived);
 }
 function tempHandler(temperature) {
 temp.value=temperature;
@@ -24,18 +26,21 @@ temp.value=temperature;
 function sendHour(hourR){
 hour.value=hourR;
 }
+// function pushCity(city){
+//   historyCities.value.push(city);
+// console.log('arr',historyCities.value)
+// }
 </script>
 
 <template>
     <Header @city="searchCity($event)"/>
-    <NavComponent/>
     <section class="front">
       <TypeSelector @tempType="tempHandler"/>
-      <CurrentData @dataWeather="sendData" @hourDay="sendHour" :temp="temp"  :city="city"/>
+      <CurrentData @arrayCities="pushCity" @dataWeather="sendData" @hourDay="sendHour" :temp="temp"  :city="city"/>
     </section>
     <section class="contents">
       <ForecastVue :hour="hour" :temp="temp" :city="city"/>
-      <Informations :infoWeather="infoWeather"/>
+      <Informations :historyCities="historyCities" :hour="hour" :temp="temp" :infoWeather="infoWeather"/>
     </section>
     <FooterComponent/>
 

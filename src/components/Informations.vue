@@ -3,48 +3,111 @@
     <h3>Additional Information</h3>
     <article>
       <div class="row">
-          <div class="info">
+          <div class="info" >
+            <article class="front" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
             <section>
               <img src="/src/assets/img/temperature.png" alt="temperature" />
               <small>Feels Like </small>
             </section>
-            <span>{{ infoWeather.current?.feelslike_c }} °C</span>
+            <span v-if="temp=='C' || temp==''">{{ infoWeather.current?.feelslike_c }} °C</span>
+            <span v-else>{{ infoWeather.current?.feelslike_f }} °F</span>
             <p>Similar to the actual temperature.</p>
+            </article>
+            <article class="back" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
+              BACK
+            </article>
           </div>
           <div class="info">
+            <article class="front" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
             <section>
               <img src="/src/assets/img/uv.png" alt="uv" />
               <small>UV Index</small>
             </section>
             <span>{{ infoWeather.current?.uv }}</span>
             <small>{{getUVIndexLevel(infoWeather.current?.uv) }}</small>
+            </article>
+            <article class="back" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
+            </article>
+
           </div>
       </div>
       <div class="row">
           <div class="info">
+          <article :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }" class="front">
             <section>
               <img src="/src/assets/img/humidity.png" alt="humidity" />
-              <small>Humidity</small>
+              <small>Precipitation</small>
             </section>
-            <span>{{ infoWeather.current?.humidity }} %</span>
+            <span>{{ infoWeather.current?.precip_mm }} mm</span>
+          </article>
+          <article class="back" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
+              <aside v-if="infoWeather.current?.precip_mm==0">
+                 <h4>No Rain</h4>
+                 <p>No unbrella needed</p>
+                </aside>
+              <aside v-else-if="infoWeather.current?.precip_mm>0 && infoWeather.current?.precip_mm<=0.5 ">
+              <h4>Slight Rain</h4>
+              <i class="fa-solid fa-umbrella"></i>
+              <p>You may need an umbrella</p>
+              </aside>
+              <aside v-else-if="infoWeather.current?.precip_mm>0.5 && infoWeather.current?.precip_mm<=4.0 ">
+              <h4>Moderate Rain</h4> 
+              <i class="fa-solid fa-umbrella"></i>
+              <p>You need an umbrella</p>
+
+
+              </aside>
+              <aside v-else-if="infoWeather.current?.precip_mm>4.0 && infoWeather.current?.precip_mm<=8.0 ">
+              <h4>Heavy Rain</h4> 
+              <i class="fa-solid fa-umbrella"></i>
+              <p>You really need an umbrella</p>
+
+              </aside>
+              <aside v-else-if="infoWeather.current?.precip_mm>8.0">
+               <h4>Very Heavy Rain</h4>
+              <i class="fa-solid fa-umbrella"></i>
+              <p>You really need an umbrella</p>
+                </aside>
+          </article>
           </div>
-          <div class="info">
+
+          <div class="info" >
+            <article class="front" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
             <section>
               <img src="/src/assets/img/wind.png" alt="wind" />
               <small>Wind</small>
             </section>
             <span>{{ infoWeather.current?.wind_kph }} km/h</span>
+            </article>
+            <article class="back" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
+              back
+            </article>
+
           </div>
       </div>
     </article>
+      <section class="history">
+        <h3>History</h3>
+        <ul>
+          <li v-for="city in historyCities" :key="city">
+           
+           <aside  style="color:black">{{city}}</aside> 
+          </li>
+        </ul>
+      </section>
+
   </section>
+
 </template>
 
 <script>
 export default {
   name: "Informations",
   props:{
-    infoWeather:Object
+    infoWeather:Object,
+    hour:Number,
+    temp:String,
+    historyCities:Array
   },
   data() {
     return {
@@ -66,6 +129,12 @@ export default {
         return "Extreme";
       }
     },
+  },
+  computed : {
+      // citiesF:function(){
+      //       let citiesComputed = this.historyCities.filter((el,i)=> i>0);
+      //       return citiesComputed
+      //   },
   }
 };
 </script>
@@ -100,12 +169,53 @@ export default {
   flex-direction: column;
   row-gap: 2vh;
   justify-content: space-evenly;
-  padding: 3vh;
+  align-items: center;
   border-radius: 20px;
-  background-color: #50afe9;
+  position: relative;
   width: 34vh;
   height: 27vh;
   text-align: center;
+  perspective: 150vh;
+
+}
+
+.info:hover .front {
+  transform: rotateY(180deg);
+
+}
+.info:hover .back {
+  transform: rotateY(0deg);
+
+}
+
+.back {
+  transform: rotateY(-180deg);
+
+}
+.back aside {
+  display: flex;
+  flex-direction: column;
+  row-gap: 3vh;
+}
+
+.back aside i {
+  font-size: 50px;
+}
+
+.front,.back {
+  position: absolute;
+  backface-visibility: hidden;
+  transition: .8s ease;
+   width: 34vh;
+  height: 27vh;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 3vh;
+
+
 }
 
 .info > section {
@@ -130,6 +240,22 @@ export default {
 .info img {
   width: 4vh;
   height: 4vh;
+}
+
+.sunsetS{
+  background-color: #C38154;
+
+
+}
+.dayS {
+   background-color: #50afe9; 
+
+}
+.nightS{
+background-color: #526D82;
+}
+.sunriseS{
+background-color: #C4D7B2;
 }
 </style>
 
