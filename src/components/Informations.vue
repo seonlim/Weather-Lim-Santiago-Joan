@@ -24,11 +24,26 @@
               <small>UV Index</small>
             </section>
             <span>{{ infoWeather.current?.uv }}</span>
-            <small>{{getUVIndexLevel(infoWeather.current?.uv) }}</small>
             </article>
             <article class="back" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
+            <small>{{getUVIndexLevel(infoWeather.current?.uv)}}</small>  
+               <aside v-if="infoWeather.current?.uv<3">
+              <p>No sun protection needed</p>
+              </aside>
+              <aside v-else-if="infoWeather.current?.uv<=6">
+                <img  src="/src/assets/img/sun-block.png" alt="sun-protection">
+                <p>Sun protection needed during the day</p>
+              </aside>
+              <aside v-else-if="infoWeather.current?.uv<8">
+                <img src="/src/assets/img/sun-block.png" alt="sun-protection">
+                <p>Extra protection needed. wear protective clothing, a wide-brimmed hat, and sunglasses.</p>
+              </aside>
+              <aside v-else-if="infoWeather.current?.uv<11">
+                <img src="/src/assets/img/sun-block.png" alt="sun-protection">
+                <p>Extra protection needed. Be careful outside</p>
+              </aside>
             </article>
-
+             
           </div>
       </div>
       <div class="row">
@@ -71,7 +86,7 @@
           </article>
           </div>
 
-          <div class="info" >
+          <div class="info">
             <article class="front" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
             <section>
               <img src="/src/assets/img/wind.png" alt="wind" />
@@ -129,12 +144,6 @@ export default {
         return "Extreme";
       }
     },
-  },
-  computed : {
-      // citiesF:function(){
-      //       let citiesComputed = this.historyCities.filter((el,i)=> i>0);
-      //       return citiesComputed
-      //   },
   }
 };
 </script>
@@ -190,16 +199,26 @@ export default {
 
 .back {
   transform: rotateY(-180deg);
+  padding: 5px;
 
 }
 .back aside {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   row-gap: 3vh;
 }
 
+
+
 .back aside i {
   font-size: 50px;
+}
+
+.back > aside > img {
+  width: 70px;
+  height: 70px;
 }
 
 .front,.back {
@@ -214,6 +233,7 @@ export default {
   justify-content: center;
   align-items: center;
   row-gap: 3vh;
+
 
 
 }
