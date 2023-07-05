@@ -9,14 +9,12 @@
     </article>
     <h1 style="font-size: 10vh;">{{dayData.day.avgtemp_c}}ºC</h1>
     <section class="box2">
-      <a class="prev" @click="prevSlide">&#10094;</a>
-      <div class="time" v-for="hour,index in dayData.hour" :key="index" v-show="index === currentIndex">
-        <p>{{hour.time}}</p>
+      <div class="time" v-for="hour,index in dayData.hour" :key="index" >
+        <p>{{formatHour(hour.time)}}</p>
         <img :src=hour.condition.icon alt="">
         <p>{{hour.condition.text}}</p>
         <p>{{hour.temp_c}} ºC</p>
       </div>
-      <a class="next" @click="nextSlide">&#10095;</a>
     </section>
     <section class="big_box">
       <div class="box">
@@ -47,7 +45,6 @@
         <p class="number">{{dayData.day.uv}}</p>
       </div>
     </section>
-  {{dayData.astro.sunrise}}
 
                                 
   </div>
@@ -55,6 +52,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 export default {
   data() {
     return {
@@ -69,22 +67,13 @@ export default {
     passModal() {
       this.$emit('closeModal',false);
     },
-    nextSlide() {
-      this.currentIndex++;
-      if (this.currentIndex >= this.dayData.hour.length) {
-        this.currentIndex = 0;
-      }
-    },
-    prevSlide() {
-      this.currentIndex--;
-      if (this.currentIndex < 0) {
-        this.currentIndex = this.dayData.hour.length - 1;
-      }
-    }
+    formatHour(time) {
+    return moment(time).format("HH:mm");
+  }
   },
     mounted() {
     console.log(this.currentIndex);
-  }
+  },
 }
 </script>
 <style scoped>
@@ -177,41 +166,24 @@ article{
 }
 .box2{
   display: flex;
-  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
+  column-gap: 2vh;
 }
 .time{
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 1000px;
+  padding: 2%;
+  margin-right: 10px;
+  background-color: #4FAFE9;
 }
-.prev, .next {
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  color: white;
-  font-weight: bold;
-  font-size: 20px;
-  transition: 0.3s ease;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.prev {
-  border-radius: 3px 0 0 3px;
-  top: 0;
-  right: 0;
-}
-.next {
-  border-radius: 3px 0 0 3px;
-  top: 0;
-  left: 0;
-}
-
-.prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+.time img{
+  width: 90px;
 }
 h1{
   padding-bottom: 4vh;
