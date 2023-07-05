@@ -9,11 +9,9 @@
 
 <script>
 export default {
-    data() {
-        return {
-
-        }
-    },
+  props: {
+    temp: String,
+  },
     methods:{
         changeTemp(e) {
             console.log(e.target.value)
