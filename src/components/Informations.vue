@@ -14,7 +14,26 @@
             <p>Similar to the actual temperature.</p>
             </article>
             <article class="back" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
-              BACK
+            <aside v-if="infoWeather.current?.feelslike_c<0">
+              <img src="/src/assets/img/coat.png" alt="coat">
+              <p>Winter clothes needed</p>
+              <small>Bring an extra set of clothes</small>
+            </aside>
+            <aside v-else-if="infoWeather.current?.feelslike_c<17">
+              <img src="/src/assets/img/hoodie.png" alt="hoodie">
+              <p>No extra layers needed</p>
+              <small>Sweaters, hoodies, etc...</small>
+            </aside>
+            <aside v-else-if="infoWeather.current?.feelslike_c<23">
+              <img src="/src/assets/img/tshirt.png" alt="tshirt">
+              <p>Cool weather</p>
+              <small>T-shirts</small>
+            </aside>
+               <aside v-else>
+              <img src="/src/assets/img/shorts.png" alt="shorts">
+              <p>Summer weather</p>
+              <small>Shorts, light clothing</small>
+            </aside>
             </article>
           </div>
           <div class="info">
