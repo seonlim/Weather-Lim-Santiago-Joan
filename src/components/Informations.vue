@@ -3,39 +3,39 @@
     <h3>Additional Information</h3>
     <article>
       <div class="row">
-          <div class="info">
-            <section>
-              <img src="/src/assets/img/temperature.png" alt="temperature" />
-              <small>Feels Like </small>
-            </section>
-            <span>{{ infoWeather.current?.feelslike_c }} °C</span>
-            <p>{{ getTemperatureMessage }}</p>
-          </div>
-          <div class="info">
-            <section>
-              <img src="/src/assets/img/uv.png" alt="uv" />
-              <small>UV Index</small>
-            </section>
-            <span>{{ infoWeather.current?.uv }}</span>
-            <small>{{getUVIndexLevel(infoWeather.current?.uv) }}</small>
-          </div>
+        <div class="info">
+          <section>
+            <img src="/src/assets/img/temperature.png" alt="temperature" />
+            <small>Feels Like </small>
+          </section>
+          <span>{{ infoWeather.current?.feelslike_c }} °C</span>
+          <p>{{ getTemperatureMessage }}</p>
+        </div>
+        <div class="info">
+          <section>
+            <img src="/src/assets/img/uv.png" alt="uv" />
+            <small>UV Index</small>
+          </section>
+          <span>{{ infoWeather.current?.uv }}</span>
+          <small>{{ getUVIndexLevel(infoWeather.current?.uv) }}</small>
+        </div>
       </div>
       <div class="row">
-          <div class="info">
-            <section>
-              <img src="/src/assets/img/humidity.png" alt="humidity" />
-              <small>Humidity</small>
-            </section>
-            <span>{{ infoWeather.current?.humidity }} %</span>
-          </div>
-          <div class="info">
-            <section>
-              <img src="/src/assets/img/wind.png" alt="wind" />
-              <small>Wind</small>
-            </section>
-            <span>{{ infoWeather.current?.wind_kph }} km/h</span>
-          </div>
-      </div> 
+        <div class="info">
+          <section>
+            <img src="/src/assets/img/humidity.png" alt="humidity" />
+            <small>Humidity</small>
+          </section>
+          <span>{{ infoWeather.current?.humidity }} %</span>
+        </div>
+        <div class="info">
+          <section>
+            <img src="/src/assets/img/wind.png" alt="wind" />
+            <small>Wind</small>
+          </section>
+          <span>{{ infoWeather.current?.wind_kph }} km/h</span>
+        </div>
+      </div>
     </article>
   </section>
 </template>
@@ -48,7 +48,7 @@ export default {
   },
   data() {
     return {
-        uvIndexLevel: "",
+      uvIndexLevel: "",
     };
   },
   methods: {
@@ -68,18 +68,23 @@ export default {
   },
   computed: {
     getTemperatureMessage() {
-      const temperatureDifference = this.infoWeather.current?.feelslike_c - this.infoWeather.current?.temp_c;
+      const temperatureDifference =
+        this.infoWeather.current?.feelslike_c -
+        this.infoWeather.current?.temp_c;
       if (temperatureDifference >= 10) {
-        return "It's too cold";
-      } else if (temperatureDifference >= 5) {
         return "Significantly different from the actual temperature";
+      } else if (temperatureDifference >= 5) {
+        return "There's a noticeable difference in temperature";
       } else if (temperatureDifference >= 2) {
         return "Little bit different from the actual temperature";
       } else {
-        return "Similar to the actual temperature.";
+        return "Similar to the actual temperature";
       }
-    }
-  }
+    },
+    currentTemperature() {
+      return this.infoWeather.current?.temp_c;
+    },
+  },
 };
 </script>
 
@@ -90,7 +95,6 @@ export default {
   row-gap: 2vh;
   color: white;
   font-size: 20px;
-  /* width: 50%; */
 }
 
 .informations > article {
@@ -100,12 +104,13 @@ export default {
 }
 
 .row {
-    display: flex;
-    column-gap: 2vh;
+  display: flex;
+  column-gap: 2vh;
 }
 
 .informations h3 {
   color: black;
+  font-size: 24px;
 }
 
 .info {
