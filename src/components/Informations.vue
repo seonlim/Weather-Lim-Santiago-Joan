@@ -119,7 +119,7 @@
           </div>
       </div>
     </article>
-      <section class="history">
+      <!-- <section class="history">
         <h3>History</h3>
         <ul>
           <li v-for="city in historyCities" :key="city">
@@ -127,7 +127,7 @@
            <aside  style="color:black">{{city}}</aside> 
           </li>
         </ul>
-      </section>
+      </section> -->
 
   </section>
 
