@@ -205,10 +205,10 @@ background-color: #C4D7B2;
 }
 .inner-tab{
     display: flex;
-    padding: 4vh;
+    padding: 1vh 1vh 1vh 6vh;
     justify-content: space-between;
 }
-h5 {
+h5 {                                                                                                  
   font-size: 35px;
   display: flex;
   column-gap: 3vw;

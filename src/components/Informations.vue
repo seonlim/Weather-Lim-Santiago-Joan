@@ -114,7 +114,6 @@
             <span>{{ infoWeather.current?.wind_kph }} km/h</span>
             </article>
             <article class="back" :class="{sunsetS:(hour>=19 && hour<=20), sunriseS:(hour>=5 && hour<=7), nightS:hour>=21 || hour<=4,dayS:(hour>=8 && hour<=18) }">
-              back
             </article>
 
           </div>
