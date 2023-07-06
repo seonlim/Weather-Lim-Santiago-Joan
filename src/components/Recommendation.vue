@@ -37,32 +37,33 @@
         </figure>
       </article>
     </section>
-    <section v-else-if="23 < infoWeather.current?.temp_c < 27">
+    <section v-else-if="infoWeather.current?.temp_c >= 23 && infoWeather.current?.temp_c < 27">
       <h2>test 23~27</h2>
     </section>
-    <section v-else-if="20 < infoWeather.current?.temp_c < 23">
+    <section v-else-if="infoWeather.current?.temp_c >= 20 && infoWeather.current?.temp_c < 23">
       <h2>test 20~23</h2>
     </section>
-    <section v-else-if="17 < infoWeather.current?.temp_c < 19">
+    <section v-else-if="infoWeather.current?.temp_c >= 17 && infoWeather.current?.temp_c < 19">
       <h2>test 17~19</h2>
     </section>
-    <section v-else-if="12 < infoWeather.current?.temp_c < 16">
+    <section v-else-if="infoWeather.current?.temp_c >= 12 && infoWeather.current?.temp_c < 16">
       <h2>test 12~16</h2>
     </section>
-    <section v-else-if="9 < infoWeather.current?.temp_c < 11">
+    <section v-else-if="infoWeather.current?.temp_c >= 9 && infoWeather.current?.temp_c < 11">
       <h2>test 9~11</h2>
     </section>
-    <section v-else-if="5 < infoWeather.current?.temp_c < 8">
+    <section v-else-if="infoWeather.current?.temp_c >= 5 && infoWeather.current?.temp_c < 8">
       <h2>test 5~8</h2>
     </section>
     <section v-else-if="infoWeather.current?.temp_c < 5" class="toocold">
-      <h2>test under 5 </h2>
+      <h2>test under 5</h2>
     </section>
     <section v-else>
       <h3>Don't go outside</h3>
     </section>
   </section>
 </template>
+
 <script>
 export default {
   name: "Recommendation",
@@ -71,6 +72,7 @@ export default {
   },
 };
 </script>
+
 <style>
 .recommendations {
   display: flex;
