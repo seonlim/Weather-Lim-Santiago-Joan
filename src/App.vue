@@ -58,6 +58,10 @@ hour.value=hourR;
   justify-content: center;
 }
 
+.front {
+  padding: 1%;
+}
+
 .contents {
   display: flex;
   justify-content: space-evenly;

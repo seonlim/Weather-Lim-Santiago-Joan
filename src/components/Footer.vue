@@ -40,13 +40,13 @@ p {
 footer {
   display: flex;
   flex-direction: column;
-  height: 30%;
+  height: 20%;
   background-color: white;
   color: rgb(69, 114, 159);
   row-gap: 3vh;
   justify-content: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 2%;
+  padding: 1%;
 }
 
 footer img {
