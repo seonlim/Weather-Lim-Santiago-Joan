@@ -110,9 +110,9 @@
       <article>
         <h3>Bottoms</h3>
         <figure>
-          <div><img src="../assets/img/shorts(1).png" alt="bottoms1" /></div>
-          <div><img src="../assets/img/shorts(3).png" alt="bottoms2" /></div>
-          <div><img src="../assets/img/shorts(2).png" alt="bottoms3" /></div>
+          <div><img src="../assets/img/pants (4).png" alt="bottoms3" /></div>
+          <div><img src="../assets/img/pants (3).png" alt="bottoms1" /></div>
+          <div><img src="../assets/img/loose-pants.png" alt="bottoms2" /></div>
         </figure>
       </article>
       <article>
@@ -153,9 +153,9 @@
       <article>
         <h3>Bottoms</h3>
         <figure>
-          <div><img src="../assets/img/sneakers.png" alt="shoes1" /></div>
-          <div><img src="../assets/img/sneakers (1).png" alt="shoes2" /></div>
-          <div><img src="../assets/img/sneakers (2).png" alt="shoes3" /></div>
+          <div><img src="../assets/img/pants (3).png" alt="bottoms1" /></div>
+          <div><img src="../assets/img/loose-pants.png" alt="bottoms2" /></div>
+          <div><img src="../assets/img/pants (4).png" alt="bottoms3" /></div>
         </figure>
       </article>
       <article>
