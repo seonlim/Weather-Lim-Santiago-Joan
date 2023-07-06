@@ -5,6 +5,8 @@
         v-if="modal"
         @closeModal="closeModalfromChild($event)"
         :dayData="modalData"
+        :hour="hour"
+        :temp="temp"
       />
     </Transition>
     <div class="forecast">
@@ -14,8 +16,26 @@
           <p :class="{header:true,sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }" ><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ weekday: 'long'})}}</span><span>{{new Date(data.date_epoch*1000).toLocaleString('en-US',{ day: 'numeric', month:'long'})}}</span></p>
           <section class="inner-tab">
           <aside>
-              <h5 v-if="temp=='' || temp=='C'">{{data.day.avgtemp_c}}°C</h5>
-              <h5 v-else>{{data.day.avgtemp_f}}°F</h5>
+              <h5 v-if="temp=='' || temp=='C'">
+                <aside>
+                <small>Min</small>
+                <span>{{data.day.mintemp_c}}°C</span> 
+                </aside>
+                <aside>
+                <small>Max</small>
+                <span>{{data.day.maxtemp_c}}°C</span> 
+                </aside>
+                </h5>
+              <h5 v-else>
+                <aside>
+                <small>Min</small>
+                <span>{{data.day.mintemp_c}}°F</span> 
+                </aside>
+                <aside>
+                <small>Max</small>
+                <span>{{data.day.maxtemp_c}}°F</span> 
+                </aside>
+                </h5>
           </aside>
           <aside>
               <i class="fa-solid fa-sun sunrise-i"></i>
@@ -105,6 +125,10 @@ export default {
   width: 80vh;
 }
 
+.tab article:hover {
+  transform: scale(1.01);
+}
+
 .forecast {
   display: flex;
   flex-direction: column;
@@ -126,6 +150,7 @@ export default {
     justify-content: space-between;
     /* background-color: #50afe9; */
     color: white;
+    transition: .4s;
     border-radius: 4px;
     height: fit-content;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
@@ -180,11 +205,20 @@ background-color: #C4D7B2;
 }
 .inner-tab{
     display: flex;
-    padding: 1vh;
+    padding: 1vh 1vh 1vh 6vh;
     justify-content: space-between;
 }
-h5 {
-  font-size: 60px;
+h5 {                                                                                                  
+  font-size: 35px;
+  display: flex;
+  column-gap: 3vw;
+  padding-left: 3vh;
+
+}
+
+h5 small {
+  font-size: 15px;
+
 }
 
 
