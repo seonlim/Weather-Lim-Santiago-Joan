@@ -47,7 +47,7 @@
       <article>
         <h3>Accessories</h3>
         <figure>
-          <div><img src="../assets/img/cap(1).png" alt="accesories1" /></div>
+          <div><img src="../assets/img/cap (1).png" alt="accesories1" /></div>
           <div>
             <img src="../assets/img/sunglasses.png" alt="accesories2" />
           </div>
