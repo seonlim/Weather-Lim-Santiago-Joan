@@ -234,7 +234,7 @@ export default {
 .recommendations > section {
   display: flex;
   flex-direction: column;
-  background-color: #0b99e5;
+  background-color: #50afe9;
   border-radius: 20px;
   padding: 5%;
   row-gap: 3vh;

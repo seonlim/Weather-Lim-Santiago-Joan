@@ -1,7 +1,7 @@
 <template>
     <div id="header">
         <header>
-            <h1>Sunny Weather</h1>
+            <h1>Sky Forecast</h1>
             <form >
                 <input v-model="searchCity" placeholder="City..." type="search">
                 <button @click="handleSearch" type="submit" class="search"><i class="fa-solid fa-magnifying-glass"></i></button>
