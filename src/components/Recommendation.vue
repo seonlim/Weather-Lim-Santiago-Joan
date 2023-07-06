@@ -8,7 +8,7 @@
         <figure>
           <div><img src="../assets/img/cap.png" alt="cap" /></div>
           <div><img src="../assets/img/sunglasses.png" alt="sunglasses" /></div>
-          <div><img src="../assets/img/sunhat.png(1)" alt="sunhat" /></div>
+          <div><img src="../assets/img/sunhat.png" alt="sunhat" /></div>
         </figure>
       </article>
       <article>
@@ -51,7 +51,7 @@
           <div>
             <img src="../assets/img/sunglasses.png" alt="accesories2" />
           </div>
-          <div><img src="../assets/img/sunhat.png" alt="accesories3" /></div>
+          <div><img src="../assets/img/sunhat(1).png" alt="accesories3" /></div>
         </figure>
       </article>
       <article>
