@@ -1,13 +1,14 @@
 <template>
   <section class="recommendations">
     <h3>Weather Clothing Guide</h3>
-    <section v-if="infoWeather.current?.temp_c >= 27">
+    <!--more than 23-->
+    <section v-if="infoWeather.current?.temp_c >= 23">
       <article>
         <h3>Accessories</h3>
         <figure>
           <div><img src="../assets/img/cap.png" alt="cap" /></div>
           <div><img src="../assets/img/sunglasses.png" alt="sunglasses" /></div>
-          <div><img src="../assets/img/sunhat.png" alt="sunhat" /></div>
+          <div><img src="../assets/img/sunhat.png(1)" alt="sunhat" /></div>
         </figure>
       </article>
       <article>
@@ -37,27 +38,176 @@
         </figure>
       </article>
     </section>
-    <section v-else-if="infoWeather.current?.temp_c >= 23 && infoWeather.current?.temp_c < 27">
-  <h2>more than 23 , less than 27</h2>
-</section>
-<section v-else-if="infoWeather.current?.temp_c >= 20 && infoWeather.current?.temp_c < 23">
-  <h2>more than 20 , less than 23</h2>
-</section>
-<section v-else-if="infoWeather.current?.temp_c >= 16 && infoWeather.current?.temp_c < 20">
-  <h2>more than 16 , less than 20</h2>
-</section>
-<section v-else-if="infoWeather.current?.temp_c >= 12 && infoWeather.current?.temp_c < 16">
-  <h2>more than 12 , less than 16</h2>
-</section>
-<section v-else-if="infoWeather.current?.temp_c >= 9 && infoWeather.current?.temp_c < 12">
-  <h2>more than 9 , less than 12</h2>
-</section>
-<section v-else-if="infoWeather.current?.temp_c >= 5 && infoWeather.current?.temp_c < 9">
-  <h2>more than 5 , less than 9</h2>
-</section>
-<section v-else-if="infoWeather.current?.temp_c < 5">
-  <h2>less than 5</h2>
-</section>
+    <!-- 19 ~ 23-->
+    <section
+      v-else-if="
+        infoWeather.current?.temp_c >= 19 && infoWeather.current?.temp_c < 23
+      "
+    >
+      <article>
+        <h3>Accessories</h3>
+        <figure>
+          <div><img src="../assets/img/cap(1).png" alt="accesories1" /></div>
+          <div>
+            <img src="../assets/img/sunglasses.png" alt="accesories2" />
+          </div>
+          <div><img src="../assets/img/sunhat.png" alt="accesories3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Top</h3>
+        <figure>
+          <div><img src="../assets/img/sleeves.png" alt="top1" /></div>
+          <div><img src="../assets/img/shirt (1).png" alt="top2" /></div>
+          <div>
+            <img src="../assets/img/shirt (2).png" alt="top3t" />
+          </div>
+        </figure>
+      </article>
+      <article>
+        <h3>Bottoms</h3>
+        <figure>
+          <div><img src="../assets/img/pants (3).png" alt="bottoms1" /></div>
+          <div><img src="../assets/img/loose-pants.png" alt="bottoms2" /></div>
+          <div><img src="../assets/img/pants (4).png" alt="bottoms3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Shoes</h3>
+        <figure>
+          <div><img src="../assets/img/sneakers.png" alt="shoes1" /></div>
+          <div><img src="../assets/img/sneakers (1).png" alt="shoes2" /></div>
+          <div><img src="../assets/img/sneakers (2).png" alt="shoes3" /></div>
+        </figure>
+      </article>
+    </section>
+    <!-- 11 ~ 19-->
+    <section
+      v-else-if="
+        infoWeather.current?.temp_c >= 11 && infoWeather.current?.temp_c < 19
+      "
+    >
+      <article>
+        <h3>Accessories</h3>
+        <figure>
+          <div><img src="../assets/img/cap.png" alt="accesories1" /></div>
+          <div>
+            <img src="../assets/img/sunglasses.png" alt="accesories2" />
+          </div>
+          <div><img src="../assets/img/bucket.png" alt="accesories3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Top</h3>
+        <figure>
+          <div><img src="../assets/img/coat (3).png" alt="top1" /></div>
+          <div><img src="../assets/img/cardigan.png" alt="top2" /></div>
+          <div>
+            <img src="../assets/img/cardigan (1).png" alt="top3t" />
+          </div>
+        </figure>
+      </article>
+      <article>
+        <h3>Bottoms</h3>
+        <figure>
+          <div><img src="../assets/img/shorts(1).png" alt="bottoms1" /></div>
+          <div><img src="../assets/img/shorts(3).png" alt="bottoms2" /></div>
+          <div><img src="../assets/img/shorts(2).png" alt="bottoms3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Shoes</h3>
+        <figure>
+          <div><img src="../assets/img/sneakers.png" alt="shoes1" /></div>
+          <div><img src="../assets/img/sneakers (1).png" alt="shoes2" /></div>
+          <div><img src="../assets/img/sneakers (2).png" alt="shoes3" /></div>
+        </figure>
+      </article>
+    </section>
+    <!-- 5 ~ 11 -->
+    <section
+      v-else-if="
+        infoWeather.current?.temp_c >= 5 && infoWeather.current?.temp_c < 11
+      "
+    >
+      <article>
+        <h3>Accessories</h3>
+        <figure>
+          <div><img src="../assets/img/beanie.png" alt="accesories1" /></div>
+          <div>
+            <img src="../assets/img/scarf.png" alt="accesories2" />
+          </div>
+          <div><img src="../assets/img/socks.png" alt="accesories3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Top</h3>
+        <figure>
+          <div><img src="../assets/img/sweater.png" alt="top1" /></div>
+          <div><img src="../assets/img/sweater(1).png" alt="top2" /></div>
+          <div>
+            <img src="../assets/img/sweater(2).png" alt="top3t" />
+          </div>
+        </figure>
+      </article>
+      <article>
+        <h3>Bottoms</h3>
+        <figure>
+          <div><img src="../assets/img/sneakers.png" alt="shoes1" /></div>
+          <div><img src="../assets/img/sneakers (1).png" alt="shoes2" /></div>
+          <div><img src="../assets/img/sneakers (2).png" alt="shoes3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Shoes</h3>
+        <figure>
+          <div><img src="../assets/img/boots.png" alt="shoes1" /></div>
+          <div><img src="../assets/img/boots(1).png" alt="shoes2" /></div>
+          <div><img src="../assets/img/boots(2).png" alt="shoes3" /></div>
+        </figure>
+      </article>
+    </section>
+    <!-- less than 5 -->
+    <section v-else-if="infoWeather.current?.temp_c < 5">
+      <article>
+        <h3>Accessories</h3>
+        <figure>
+          <div>
+            <img src="../assets/img/winter-hat.png" alt="accesories1" />
+          </div>
+          <div>
+            <img src="../assets/img/glove.png" alt="accesories2" />
+          </div>
+          <div><img src="../assets/img/earmuffs.png" alt="accesories3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Top</h3>
+        <figure>
+          <div><img src="../assets/img/coat.png" alt="top1" /></div>
+          <div><img src="../assets/img/coat (1).png" alt="top2" /></div>
+          <div>
+            <img src="../assets/img/coat (2).png" alt="top3t" />
+          </div>
+        </figure>
+      </article>
+      <article>
+        <h3>Bottoms</h3>
+        <figure>
+          <div><img src="../assets/img/winter.png" alt="bottoms1" /></div>
+          <div><img src="../assets/img/winter(1).png" alt="bottoms2" /></div>
+          <div><img src="../assets/img/winter(2).png" alt="bottoms3" /></div>
+        </figure>
+      </article>
+      <article>
+        <h3>Shoes</h3>
+        <figure>
+          <div><img src="../assets/img/boots.png" alt="shoes1" /></div>
+          <div><img src="../assets/img/boots(1).png" alt="shoes2" /></div>
+          <div><img src="../assets/img/boots(2).png" alt="shoes3" /></div>
+        </figure>
+      </article>
+    </section>
   </section>
 </template>
 
