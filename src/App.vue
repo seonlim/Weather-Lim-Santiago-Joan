@@ -45,7 +45,7 @@ hour.value=hourR;
       </section>
       <section class="right">
         <Informations :historyCities="historyCities" :hour="hour" :temp="temp" :infoWeather="infoWeather"/>
-        <Recommendation :infoWeather="infoWeather"/>
+        <Recommendation :hour="hour" :temp="temp" :infoWeather="infoWeather "/>
       </section>
     </section>
     <FooterComponent/>
@@ -69,7 +69,7 @@ hour.value=hourR;
 .right {
   display: flex;
   flex-direction: column;
-  row-gap: 2vh;
+  row-gap: 5vh;
 }
 
 </style>
