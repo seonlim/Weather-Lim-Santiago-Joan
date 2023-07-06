@@ -105,14 +105,14 @@ export default {
             this.modalData=this.forecastData[i];
         },
         closeModalfromChild(modalState){
-            this.modal=modalState
+            this.modal=modalState;
             // console.log(modalState)
         }
 
     },
             created(){
         this.getForecast();
-        console.log('Hour in forecast:',this.hour)
+        console.log('Hour in forecast:',this.hour);
     }
     } 
 
@@ -122,7 +122,7 @@ export default {
   display: flex;
   flex-direction: column;
   row-gap: 1vh;
-  width: 40%;
+  width: 80vh;
 }
 
 .tab article:hover {
@@ -133,13 +133,12 @@ export default {
   display: flex;
   flex-direction: column;
   row-gap: 2vh;
-  width: 100%;
 }
 
 .tab {
   display: flex;
   flex-direction: column;
-  row-gap: 1vh;
+  row-gap: 2vh;
   align-items: center;
 }
 

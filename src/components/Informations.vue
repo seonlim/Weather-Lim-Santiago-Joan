@@ -117,6 +117,7 @@
             </article>
 
           </div>
+
       </div>
     </article>
       <!-- <section class="history">
@@ -144,11 +145,10 @@ export default {
   },
   data() {
     return {
-        uvIndexLevel: "",
+      uvIndexLevel: "",
     };
   },
   methods: {
-
     getUVIndexLevel(uvIndex) {
       if (uvIndex < 3) {
         return "Low";
@@ -162,7 +162,26 @@ export default {
         return "Extreme";
       }
     },
-  }
+  },
+  computed: {
+    getTemperatureMessage() {
+      const temperatureDifference =
+        this.infoWeather.current?.feelslike_c -
+        this.infoWeather.current?.temp_c;
+      if (temperatureDifference >= 10) {
+        return "Significantly different from the actual temperature";
+      } else if (temperatureDifference >= 5) {
+        return "There's a noticeable difference in temperature";
+      } else if (temperatureDifference >= 2) {
+        return "Little bit different from the actual temperature";
+      } else {
+        return "Similar to the actual temperature";
+      }
+    },
+    currentTemperature() {
+      return this.infoWeather.current?.temp_c;
+    },
+  },
 };
 </script>
 
@@ -173,7 +192,6 @@ export default {
   row-gap: 2vh;
   color: white;
   font-size: 20px;
-  /* width: 50%; */
 }
 
 .informations > article {
@@ -183,12 +201,13 @@ export default {
 }
 
 .row {
-    display: flex;
-    column-gap: 2vh;
+  display: flex;
+  column-gap: 2vh;
 }
 
 .informations h3 {
   color: black;
+  font-size: 24px;
 }
 
 .info {
