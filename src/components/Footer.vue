@@ -1,7 +1,7 @@
 <template>
   <footer>
     <article>
-      <span> Sky Forecast </span>
+      <img src="../assets/img/logo.jpg" alt="logo">
       <p>
         Get the weather forecast in a beautiful and powerful website. See current
         and forecasted weather with a smart layout that updates as conditions
@@ -40,20 +40,26 @@ p {
 footer {
   display: flex;
   flex-direction: column;
-  height: 35vh;
+  height: 30%;
   background-color: white;
   color: rgb(69, 114, 159);
   row-gap: 3vh;
   justify-content: center;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  padding: 2%;
+}
+
+footer img {
+  width: 13%;
 }
 
 footer > article {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
   text-align: center;
   width: 100%;
+
 }
 
 footer > section {
