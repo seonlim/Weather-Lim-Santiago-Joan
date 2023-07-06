@@ -6,6 +6,7 @@
         @closeModal="closeModalfromChild($event)"
         :dayData="modalData"
         :hour="hour"
+        :temp="temp"
       />
     </Transition>
     <div class="forecast">
