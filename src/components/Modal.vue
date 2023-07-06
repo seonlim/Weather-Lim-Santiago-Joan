@@ -7,13 +7,15 @@
     <article>
       <h2>{{dayData.date}}</h2>
     </article>
-    <h1 style="font-size: 10vh;">{{dayData.day.avgtemp_c}}ºC</h1>
+    <h1 v-if="temp=='C' || temp==''" style="font-size: 10vh;">{{dayData.day.avgtemp_c}}ºC</h1>
+    <h1 style="font-size: 10vh;" v-else>{{dayData.day.avgtemp_f}}ºF</h1>
     <section class="box2">
       <div class="time" v-for="hour,index in dayData.hour" :key="index" >
         <p>{{formatHour(hour.time)}}</p>
         <img :src=hour.condition.icon alt="">
         <p>{{hour.condition.text}}</p>
-        <p>{{hour.temp_c}} ºC</p>
+        <p v-if="temp=='C' || temp==''">{{hour.temp_c}} ºC</p>
+        <p v-else>{{hour.temp_f}} ºF</p>
       </div>
     </section>
     <section class="big_box">
@@ -30,11 +32,13 @@
       </div>
       <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>Max Temp</h2>
-        <p class="number">{{dayData.day.maxtemp_c}}ºC</p>
+        <p v-if="temp=='C' || temp==''" class="number">{{dayData.day.maxtemp_c}}ºC</p>
+        <p v-else class="number">{{dayData.day.maxtemp_f}}ºF</p>
       </div>
       <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>Min Tempe</h2>
-        <p class="number">{{dayData.day.mintemp_c}}ºC</p>
+        <p v-if="temp=='C' || temp==''" class="number">{{dayData.day.mintemp_c}}ºC</p>
+        <p class="number" v-else>{{dayData.day.mintemp_f}}ºF</p>
       </div>
       <div class="box" :class="{sunset:(hour>=19 && hour<=20), sunrise:(hour>=5 && hour<=7), night:hour>=21 || hour<=4,day:(hour>=8 && hour<=18) }">
         <h2>Air Speed</h2>
@@ -62,7 +66,8 @@ export default {
   },
   props:{
     dayData:Object,
-    hour:Number
+    hour:Number,
+    temp:String
   },
   methods:{
     passModal() {
