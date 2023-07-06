@@ -184,7 +184,6 @@ article{
   width: 1000px;
   padding: 2%;
   margin-right: 10px;
-  background-color: #4FAFE9;
 }
 .time img{
   width: 90px;
